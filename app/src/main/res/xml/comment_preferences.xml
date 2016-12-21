@@ -29,7 +29,6 @@
         <EditTextPreference
                 android:key="pref_comment_words"
                 android:title="自定义回复内容"
-                android:summary="@string/pref_comment_words_summary"
                 android:layout="@layout/preference_checkbox"/>
     </PreferenceCategory>
 </PreferenceScreen>

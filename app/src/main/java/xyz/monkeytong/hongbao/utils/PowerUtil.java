@@ -5,7 +5,6 @@ import android.content.Context;
 import android.os.PowerManager;
 
 /**
- * Created by Zhongyi on 1/29/16.
  */
 public class PowerUtil {
     private PowerManager.WakeLock wakeLock;

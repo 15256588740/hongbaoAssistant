@@ -21,7 +21,6 @@ import xyz.monkeytong.hongbao.R;
 import xyz.monkeytong.hongbao.utils.ConnectivityUtil;
 import xyz.monkeytong.hongbao.utils.UpdateTask;
 
-
 public class MainActivity extends Activity implements AccessibilityManager.AccessibilityStateChangeListener {
 
     //开关切换按钮
@@ -38,8 +37,8 @@ public class MainActivity extends Activity implements AccessibilityManager.Acces
         pluginStatusText = (TextView) findViewById(R.id.layout_control_accessibility_text);
         pluginStatusIcon = (ImageView) findViewById(R.id.layout_control_accessibility_icon);
 
-        //handleMaterialStatusBar();
 
+       // 加载的设置
         explicitlyLoadPreferences();
 
         //监听AccessibilityService 变化
@@ -49,6 +48,7 @@ public class MainActivity extends Activity implements AccessibilityManager.Acces
     }
 
     private void explicitlyLoadPreferences() {
+        //将xml文件中的默认值存储到sp中
         PreferenceManager.setDefaultValues(this, R.xml.general_preferences, false);
     }
 
@@ -80,19 +80,6 @@ public class MainActivity extends Activity implements AccessibilityManager.Acces
 
     }
 
-//    public void openGitHub(View view) {
-//        Intent webViewIntent = new Intent(this, WebViewActivity.class);
-//        webViewIntent.putExtra("title", "GitHub 项目主页");
-//        webViewIntent.putExtra("url", "https://github.com/geeeeeeeeek/WeChatLuckyMoney");
-//        startActivity(webViewIntent);
-//    }
-
-//    public void openUber(View view) {
-//        Intent webViewIntent = new Intent(this, WebViewActivity.class);
-//        webViewIntent.putExtra("title", "Uber 优惠乘车机会(优惠码rgk2wue)");
-//        webViewIntent.putExtra("url", "https://get.uber.com.cn/invite/rgk2wue");
-//        startActivity(webViewIntent);
-//    }
 
     /**
      * 打开设置面板

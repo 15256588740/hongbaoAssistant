@@ -2,10 +2,8 @@ package xyz.monkeytong.hongbao.utils;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 
 /**
- * Created by Zhongyi on 1/22/16.
  */
 public class HongbaoLogger {
     private Context context;

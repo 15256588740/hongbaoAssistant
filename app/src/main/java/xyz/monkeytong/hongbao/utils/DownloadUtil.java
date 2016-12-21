@@ -5,12 +5,9 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Environment;
 
-import java.net.URI;
-
 import static android.content.Context.DOWNLOAD_SERVICE;
 
 /**
- * Created by Zhongyi on 8/1/16.
  */
 public class DownloadUtil {
     public void enqueue(String url, Context context) {

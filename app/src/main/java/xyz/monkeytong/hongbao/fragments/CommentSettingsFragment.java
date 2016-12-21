@@ -5,11 +5,11 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
-import android.widget.Toast;
+
 import xyz.monkeytong.hongbao.R;
 
 /**
- * Created by Zhongyi on 2/4/16.
+ * 拆完红包后自动回复设置
  */
 public class CommentSettingsFragment extends PreferenceFragment {
     @Override
@@ -20,17 +20,17 @@ public class CommentSettingsFragment extends PreferenceFragment {
     }
 
     private void setPrefListeners() {
+        //开启自动回复
         Preference updatePref = findPreference("pref_comment_switch");
+        //5.0以上可用
         if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             updatePref.setEnabled(false);
         }
-        Toast.makeText(getActivity(), "该功能只能自动填充感谢语,无法直接发送.", Toast.LENGTH_LONG).show();
 
         Preference commentWordsPref = findPreference("pref_comment_words");
         String summary = getResources().getString(R.string.pref_comment_words_summary);
         String value = PreferenceManager.getDefaultSharedPreferences(getActivity()).getString("pref_comment_words", "");
         if (value.length() > 0) commentWordsPref.setSummary(summary + ":" + value);
-
         commentWordsPref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object o) {

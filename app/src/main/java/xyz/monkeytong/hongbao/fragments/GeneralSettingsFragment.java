@@ -1,16 +1,15 @@
 package xyz.monkeytong.hongbao.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
+
 import xyz.monkeytong.hongbao.R;
-import xyz.monkeytong.hongbao.activities.WebViewActivity;
 import xyz.monkeytong.hongbao.utils.UpdateTask;
 
 /**
- * Created by Zhongyi on 2/4/16.
+ * 设置fragment
  */
 public class GeneralSettingsFragment extends PreferenceFragment {
     @Override
@@ -22,6 +21,7 @@ public class GeneralSettingsFragment extends PreferenceFragment {
 
     private void setPrefListeners() {
         // Check for updates
+        // 点击检查更新选项
         Preference updatePref = findPreference("pref_etc_check_update");
         updatePref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             public boolean onPreferenceClick(Preference preference) {
@@ -29,25 +29,15 @@ public class GeneralSettingsFragment extends PreferenceFragment {
                 return false;
             }
         });
-
-        // Open issue
-        Preference issuePref = findPreference("pref_etc_issue");
-        issuePref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            public boolean onPreferenceClick(Preference preference) {
-                Intent webViewIntent = new Intent(getActivity(), WebViewActivity.class);
-                webViewIntent.putExtra("title", "GitHub Issues");
-                webViewIntent.putExtra("url", getString(R.string.url_github_issues));
-                webViewIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(webViewIntent);
-                return false;
-            }
-        });
-
+        // 屏蔽红包文字
         Preference excludeWordsPref = findPreference("pref_watch_exclude_words");
+        //不拆开包含这些文字的红包(空格间隔)
         String summary = getResources().getString(R.string.pref_watch_exclude_words_summary);
         String value = PreferenceManager.getDefaultSharedPreferences(getActivity()).getString("pref_watch_exclude_words", "");
-        if (value.length() > 0) excludeWordsPref.setSummary(summary + ":" + value);
-
+        if (value.length() > 0) {
+            //显示自定义回复语
+            excludeWordsPref.setSummary(summary + ":" + value);
+        }
         excludeWordsPref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object o) {

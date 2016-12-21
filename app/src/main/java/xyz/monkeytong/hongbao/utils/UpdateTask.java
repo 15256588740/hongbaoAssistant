@@ -6,28 +6,27 @@ import android.content.pm.PackageInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.widget.Toast;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.StatusLine;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONObject;
-import xyz.monkeytong.hongbao.R;
-import xyz.monkeytong.hongbao.activities.SettingsActivity;
-import xyz.monkeytong.hongbao.activities.WebViewActivity;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
+import xyz.monkeytong.hongbao.R;
+
 /**
- * Created by Zhongyi on 1/20/16.
- * Util for app update task.
+ * 检查新版本，下载
  */
 public class UpdateTask extends AsyncTask<String, String, String> {
     public static int count = 0;
     private Context context;
     private boolean isUpdateOnRelease;
-    public static final String updateUrl = "https://api.github.com/repos/geeeeeeeeek/WeChatLuckyMoney/releases/latest";
+    public static final String updateUrl = "https://api.github.com/repos/15256588740/hongbaoAssistant/releases/latest";
 
     public UpdateTask(Context context, boolean needUpdate) {
         this.context = context;
