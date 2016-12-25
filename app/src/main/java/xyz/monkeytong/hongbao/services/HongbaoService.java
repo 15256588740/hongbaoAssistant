@@ -59,8 +59,12 @@ public class HongbaoService extends AccessibilityService implements SharedPrefer
             setCurrentActivityName(event);
         /* 检测通知消息 */
             if (!mMutex) {
-                if (sharedPreferences.getBoolean("pref_watch_notification", false) && watchNotifications(event)) return;
-                if (sharedPreferences.getBoolean("pref_watch_list", false) && watchList(event)) return;
+                //获取监视系统通知开关设置
+                if (sharedPreferences.getBoolean("pref_watch_notification", false) && watchNotifications(event))
+                    return;
+                //监视聊天列表开关设置
+                if (sharedPreferences.getBoolean("pref_watch_list", false) && watchList(event))
+                    return;
                 mListMutex = false;
             }
             if (!mChatMutex) {
@@ -180,6 +184,10 @@ public class HongbaoService extends AccessibilityService implements SharedPrefer
         }
     }
 
+    /**
+     * 设置当前activity名字
+     * @param event
+     */
     private void setCurrentActivityName(AccessibilityEvent event) {
         if (event.getEventType() != AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
             return;
@@ -232,12 +240,13 @@ public class HongbaoService extends AccessibilityService implements SharedPrefer
         if (!tip.contains(WECHAT_NOTIFICATION_TIP)) return true;
 
         Parcelable parcelable = event.getParcelableData();
+        //如果有通知
         if (parcelable instanceof Notification) {
             Notification notification = (Notification) parcelable;
             try {
                 /* 清除signature,避免进入会话后误判 */
                 signature.cleanSignature();
-
+                //打开通知
                 notification.contentIntent.send();
             } catch (PendingIntent.CanceledException e) {
                 e.printStackTrace();

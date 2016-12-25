@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.PowerManager;
 
 /**
+ * 息屏抢红包
  */
 public class PowerUtil {
     private PowerManager.WakeLock wakeLock;

@@ -16,11 +16,7 @@
     <PreferenceCategory
             android:title="回复选项"
             android:layout="@layout/preference_category">
-        <xyz.monkeytong.hongbao.activities.SeekBarPreference
-                android:key="pref_comment_delay"
-                android:title="延时发送回复"
-                pref_kind="pref_comment_delay"
-                android:layout="@layout/preference_checkbox"/>
+
         <CheckBoxPreference
                 android:key="pref_comment_at"
                 android:title="\@发红包的人"

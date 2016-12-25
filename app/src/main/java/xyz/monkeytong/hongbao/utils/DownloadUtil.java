@@ -8,6 +8,7 @@ import android.os.Environment;
 import static android.content.Context.DOWNLOAD_SERVICE;
 
 /**
+ * 下载工具类
  */
 public class DownloadUtil {
     public void enqueue(String url, Context context) {

@@ -11,7 +11,11 @@ public class HongbaoLogger {
 
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "WeChatLuckyMoney.db";
-    private static final String createDatabaseSQL = "CREATE TABLE IF NOT EXISTS HongbaoLog (id INTEGER PRIMARY KEY AUTOINCREMENT, sender TEXT, content TEXT, time TEXT, amount TEXT);";
+    private static final String createDatabaseSQL = "CREATE TABLE IF NOT EXISTS HongbaoLog " +
+            "(id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "sender TEXT, content TEXT, " +
+            "time TEXT, " +
+            "amount TEXT);";
 
     public HongbaoLogger(final Context context) {
         this.context = context;

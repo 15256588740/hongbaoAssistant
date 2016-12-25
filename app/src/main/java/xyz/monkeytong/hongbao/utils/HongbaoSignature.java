@@ -4,6 +4,7 @@ import android.graphics.Rect;
 import android.view.accessibility.AccessibilityNodeInfo;
 
 /**
+ * 判断红包是否被点击
  */
 public class HongbaoSignature {
     public String sender, content, time, contentDescription = "", commentString;
@@ -11,21 +12,25 @@ public class HongbaoSignature {
 
     public boolean generateSignature(AccessibilityNodeInfo node, String excludeWords) {
         try {
-            /* The hongbao container node. It should be a LinearLayout. By specifying that, we can avoid text messages. */
+            /* The hongbao container node.
+            It should be a LinearLayout. By specifying that,
+            we can avoid text messages. */
             AccessibilityNodeInfo hongbaoNode = node.getParent();
             if (!"android.widget.LinearLayout".equals(hongbaoNode.getClassName())) return false;
 
-            /* The text in the hongbao. Should mean something. */
+            /* The text in the hongbao.
+            Should mean something. */
             String hongbaoContent = hongbaoNode.getChild(0).getText().toString();
             if (hongbaoContent == null || "查看红包".equals(hongbaoContent)) return false;
 
-            /* Check the user's exclude words list. */
+             /* 检查用户的排除词列表 */
             String[] excludeWordsArray = excludeWords.split(" +");
             for (String word : excludeWordsArray) {
                 if (word.length() > 0 && hongbaoContent.contains(word)) return false;
             }
 
-            /* The container node for a piece of message. It should be inside the screen.
+            /* The container node for a piece of message.
+            It should be inside the screen.
                 Or sometimes it will get opened twice while scrolling. */
             AccessibilityNodeInfo messageNode = hongbaoNode.getParent();
 
@@ -33,7 +38,8 @@ public class HongbaoSignature {
             messageNode.getBoundsInScreen(bounds);
             if (bounds.top < 0) return false;
 
-            /* The sender and possible timestamp. Should mean something too. */
+            /* The sender and possible timestamp.
+             Should mean something too. */
             String[] hongbaoInfo = getSenderContentDescriptionFromNode(messageNode);
             if (this.getSignature(hongbaoInfo[0], hongbaoContent, hongbaoInfo[1]).equals(this.toString())) return false;
 
