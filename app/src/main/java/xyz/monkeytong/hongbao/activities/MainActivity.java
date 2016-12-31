@@ -4,12 +4,14 @@ import android.accessibilityservice.AccessibilityServiceInfo;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.view.View;
 import android.view.accessibility.AccessibilityManager;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,28 +30,59 @@ public class MainActivity extends Activity implements AccessibilityManager.Acces
     private ImageView pluginStatusIcon;
     //AccessibilityService 管理
     private AccessibilityManager accessibilityManager;
+    private Switch mSwitch;
+    private TextView mSwitchText;
+    private SharedPreferences sp;
+    private TextView mTv_update;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         CrashReport.initCrashReport(getApplicationContext(), "900019352", false);
         setContentView(R.layout.activity_main);
-        pluginStatusText = (TextView) findViewById(R.id.layout_control_accessibility_text);
-        pluginStatusIcon = (ImageView) findViewById(R.id.layout_control_accessibility_icon);
-
-
-       // 加载的设置
+        initView();
+        // 加载的设置
         explicitlyLoadPreferences();
-
         //监听AccessibilityService 变化
         accessibilityManager = (AccessibilityManager) getSystemService(Context.ACCESSIBILITY_SERVICE);
         accessibilityManager.addAccessibilityStateChangeListener(this);
         updateServiceStatus();
     }
 
+    private void initView() {
+        mTv_update = (TextView) findViewById(R.id.tv_setting_update);
+        pluginStatusText = (TextView) findViewById(R.id.layout_control_accessibility_text);
+        pluginStatusIcon = (ImageView) findViewById(R.id.layout_control_accessibility_icon);
+        mSwitch = (Switch) findViewById(R.id.st_switch);
+        mSwitchText = (TextView) findViewById(R.id.tv_check_title);
+        mSwitch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences.Editor edit = sp.edit();
+                if (mSwitch.isChecked()) {
+                    mSwitchText.setText("微信抢红包");
+                    edit.putBoolean("platform", true);
+                } else {
+                    mSwitchText.setText("QQ抢红包");
+                    edit.putBoolean("platform", false);
+                }
+                edit.commit();
+            }
+        });
+
+        mTv_update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //检查版本更新
+                new UpdateTask(MainActivity.this, true).update();
+            }
+        });
+    }
+
     private void explicitlyLoadPreferences() {
         //将xml文件中的默认值存储到sp中
         PreferenceManager.setDefaultValues(this, R.xml.general_preferences, false);
+        sp = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
     }
 
 
@@ -83,6 +116,7 @@ public class MainActivity extends Activity implements AccessibilityManager.Acces
 
     /**
      * 打开设置面板
+     *
      * @param view
      */
     public void openSettings(View view) {

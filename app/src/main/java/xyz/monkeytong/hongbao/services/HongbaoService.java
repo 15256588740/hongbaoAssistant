@@ -53,8 +53,13 @@ public class HongbaoService extends AccessibilityService implements SharedPrefer
      */
     @Override
     public void onAccessibilityEvent(AccessibilityEvent event) {
-        int i =1;
-        if(i == 1){
+        SharedPreferences sp=PreferenceManager.getDefaultSharedPreferences(this);
+        boolean isWeChat=sp.getBoolean("platform",true);
+        Log.e("wsong","isWeChat"+isWeChat);
+        if(isWeChat){
+            /**
+             * 微信红包
+             */
             if (sharedPreferences == null) return;
             setCurrentActivityName(event);
         /* 检测通知消息 */
@@ -74,7 +79,7 @@ public class HongbaoService extends AccessibilityService implements SharedPrefer
             }
         }else{
 
-            /****/
+          //QQ红包
 
             int eventType = event.getEventType();
             //如果通知栏有事件

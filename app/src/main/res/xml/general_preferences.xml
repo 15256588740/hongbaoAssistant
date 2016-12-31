@@ -49,7 +49,7 @@
         <Preference
                 android:key="pref_etc_check_update"
                 android:title="检查新版本"
-                android:summary="http://dwz.cn/WeChatLuckyMoney"
+                android:summary="https://github.com/15256588740/hongbaoAssistant"
                 android:layout="@layout/preference_checkbox"/>
     </PreferenceCategory>
     <PreferenceCategory
