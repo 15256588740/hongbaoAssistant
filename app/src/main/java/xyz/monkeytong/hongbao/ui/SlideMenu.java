@@ -136,13 +136,13 @@ public class SlideMenu extends FrameLayout {
     };
 
     private void executeAnim(float fraction) {
-        ViewHelper.setScaleX(mainView, floatEvaluator.evaluate(fraction,1f,0.8f));
-        ViewHelper.setScaleY(mainView, floatEvaluator.evaluate(fraction,1f,0.8f));
+//        ViewHelper.setScaleX(mainView, floatEvaluator.evaluate(fraction,1f,0.8f));
+//        ViewHelper.setScaleY(mainView, floatEvaluator.evaluate(fraction,1f,0.8f));
         //移动menuView
         ViewHelper.setTranslationX(menuView, intEvaluator.evaluate(fraction,-menuView.getMeasuredWidth()/2,0));
         //放大menuView
-        ViewHelper.setScaleX(menuView, floatEvaluator.evaluate(fraction,0.5f,1f));
-        ViewHelper.setScaleY(menuView, floatEvaluator.evaluate(fraction,0.5f,1f));
+//        ViewHelper.setScaleX(menuView, floatEvaluator.evaluate(fraction,0.5f,1f));
+//        ViewHelper.setScaleY(menuView, floatEvaluator.evaluate(fraction,0.5f,1f));
         //改变menuView的透明度
         ViewHelper.setAlpha(menuView, floatEvaluator.evaluate(fraction,0.3f,1f));
     }

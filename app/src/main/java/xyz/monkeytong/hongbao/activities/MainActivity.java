@@ -11,6 +11,7 @@ import android.provider.Settings;
 import android.view.View;
 import android.view.accessibility.AccessibilityManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,6 +35,10 @@ public class MainActivity extends Activity implements AccessibilityManager.Acces
     private TextView mSwitchText;
     private SharedPreferences sp;
     private TextView mTv_update;
+    private TextView tv_login_state;
+    private LinearLayout ll_login;
+    private TextView tv_setting_backup;
+    private  boolean is_login = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +55,9 @@ public class MainActivity extends Activity implements AccessibilityManager.Acces
     }
 
     private void initView() {
+        tv_login_state = (TextView) findViewById(R.id.tv_login_state);
+        tv_setting_backup = (TextView) findViewById(R.id.tv_setting_backup);
+        ll_login = (LinearLayout) findViewById(R.id.ll_login);
         mTv_update = (TextView) findViewById(R.id.tv_setting_update);
         pluginStatusText = (TextView) findViewById(R.id.layout_control_accessibility_text);
         pluginStatusIcon = (ImageView) findViewById(R.id.layout_control_accessibility_icon);
@@ -77,6 +85,33 @@ public class MainActivity extends Activity implements AccessibilityManager.Acces
                 new UpdateTask(MainActivity.this, true).update();
             }
         });
+
+        ll_login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!is_login) {
+                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                    startActivityForResult(intent, 1);
+                }
+            }
+        });
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case 1:
+                if (resultCode == RESULT_OK) {
+                    is_login = data.getBooleanExtra("is_login", false);
+                    if (is_login) {
+                        tv_login_state.setText("已登录");
+                        tv_setting_backup.setVisibility(View.VISIBLE);
+                    }
+                }
+                break;
+            default:
+        }
     }
 
     private void explicitlyLoadPreferences() {

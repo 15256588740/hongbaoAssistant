@@ -16,4 +16,13 @@
     <string name="pref_watch_exclude_words_summary">不拆开包含这些文字的红包(空格间隔)</string>
     <string name="pref_comment_words_summary">随机选择下列感谢语(空格间隔)</string>
     <string name="url_github_issues">https://github.com/geeeeeeeeek/WeChatLuckyMoney/issues</string>
+
+    <string name="hello">Hello World, LoginActivity!</string>
+    <string name="login_label_username">帐号</string>
+    <string name="login_label_password">密码</string>
+    <string name="login_label_signin">登 录</string>
+    <string name="login_status_logging_in">登录中...</string>
+    <string name="login_username_hint">建议Email或手机号</string>
+    <string name="login_register_link">没有帐号？ <a href="#">注册</a></string>
+    <string name="login_recall"><a href="#">找回密码</a></string>
 </resources>

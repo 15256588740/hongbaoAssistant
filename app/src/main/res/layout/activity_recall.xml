@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/background_login"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/login_div"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dip"
+        android:background="@drawable/background_login_div_bg"
+        android:padding="15dip"
+        >
+        <!-- 账号 -->
+        <TextView
+            android:id="@+id/login_user_input"
+            style="@style/normalText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="5dp"
+            android:text="@string/login_label_username"/>
+
+        <EditText
+            android:id="@+id/username_edit"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/login_user_input"
+            android:inputType="text"
+            android:singleLine="true"/>
+        <!-- 密码 text -->
+        <TextView
+            android:id="@+id/login_password_input"
+            style="@style/normalText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/username_edit"
+            android:layout_marginTop="3dp"
+            android:text="重新输入密码"/>
+
+        <EditText
+            android:id="@+id/password_edit"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/login_password_input"
+            android:inputType="textPassword"
+            android:password="true"
+            android:singleLine="true"
+            />
+        <!-- 确认密码 text -->
+        <TextView
+            android:id="@+id/login_password_re"
+            style="@style/normalText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/password_edit"
+            android:layout_marginTop="3dp"
+            android:text="确认密码"/>
+
+        <EditText
+            android:id="@+id/password_edit_re"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/login_password_re"
+            android:inputType="textPassword"
+            android:password="true"
+            android:singleLine="true"
+            />
+
+        <!-- 安全码 text -->
+        <TextView
+            android:id="@+id/tv_recall_code"
+            style="@style/normalText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/password_edit_re"
+            android:layout_marginTop="3dp"
+            android:text="安全码"/>
+
+        <EditText
+            android:id="@+id/recall_code_edit"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_recall_code"
+            android:inputType="textPassword"
+            android:password="true"
+            android:singleLine="true"
+            />
+        <!-- 注册button -->
+        <Button
+            android:id="@+id/regit_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@id/password_edit"
+            android:layout_below="@id/recall_code_edit"
+            android:background="@drawable/blue_button"
+            android:onClick="recall"
+            android:text="重置密码"
+            />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <ImageView
+            android:id="@+id/miniTwitter_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="25dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="25dp"
+            android:src="@mipmap/cat"
+            />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/miniTwitter_logo"
+            android:layout_toLeftOf="@id/miniTwitter_logo"
+            android:paddingBottom="8dp"
+            android:src="@mipmap/logo"
+            />
+
+    </RelativeLayout>
+
+</LinearLayout>

@@ -31,6 +31,10 @@
                   android:theme="@style/Base.Theme.AppCompat.Light"
                   android:launchMode="standard">
         </activity>
+        <activity android:name=".activities.LoginActivity"/>
+        <activity android:name=".activities.RecallActivity"/>
+        <activity android:name=".activities.RegisterActivity"/>
+        <activity android:name=".base.UserBaseActivity" />
         <service
                 android:name=".services.HongbaoService"
                 android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
