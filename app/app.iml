@@ -104,18 +104,32 @@
     </content>
     <orderEntry type="jdk" jdkName="Android API 21 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" name="library-2.4.0" level="project" />
+    <orderEntry type="library" exported="" name="ShareSDK-Wechat-2.8.0" level="project" />
     <orderEntry type="library" exported="" name="okio-1.7.0" level="project" />
+    <orderEntry type="library" exported="" name="jpush-android_v3.0.1" level="project" />
     <orderEntry type="library" exported="" name="gson-2.6.2" level="project" />
-    <orderEntry type="library" exported="" name="rxjava-1.1.6" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-22.1.1" level="project" />
-    <orderEntry type="library" exported="" name="support-v4-22.1.1" level="project" />
-    <orderEntry type="library" exported="" name="rxandroid-1.2.0" level="project" />
-    <orderEntry type="library" exported="" name="BmobSDK_3.5.3_20161116" level="project" />
+    <orderEntry type="library" exported="" name="ShareSDK-SinaWeibo-2.8.0" level="project" />
     <orderEntry type="library" exported="" name="appcompat-v7-22.1.1" level="project" />
     <orderEntry type="library" exported="" name="crashreport_upgrade-1.2.1" level="project" />
+    <orderEntry type="library" exported="" name="MobTools-2016.1222.1756" level="project" />
+    <orderEntry type="library" exported="" name="ShareSDK-Wechat-Core-2.8.0" level="project" />
+    <orderEntry type="library" exported="" name="ShareSDK-Email-2.8.0" level="project" />
+    <orderEntry type="library" exported="" name="ShareSDK-QZone-2.8.0" level="project" />
+    <orderEntry type="library" exported="" name="library-2.4.0" level="project" />
+    <orderEntry type="library" exported="" name="jcore-android_v1.1.0" level="project" />
+    <orderEntry type="library" exported="" name="rxjava-1.1.6" level="project" />
+    <orderEntry type="library" exported="" name="support-v4-22.1.1" level="project" />
+    <orderEntry type="library" exported="" name="rxandroid-1.2.0" level="project" />
+    <orderEntry type="library" exported="" name="ShareSDK-QQ-2.8.0" level="project" />
+    <orderEntry type="library" exported="" name="BmobSDK_3.5.3_20161116" level="project" />
+    <orderEntry type="library" exported="" name="MobCommons-2016.1222.1756" level="project" />
     <orderEntry type="library" exported="" name="okhttp-3.3.1" level="project" />
+    <orderEntry type="library" exported="" name="ShareSDK-Wechat-Favorite-2.8.0" level="project" />
     <orderEntry type="library" exported="" name="org.apache.http.legacy" level="project" />
+    <orderEntry type="library" exported="" name="ShareSDK-Wechat-Moments-2.8.0" level="project" />
+    <orderEntry type="library" exported="" name="ShareSDK-ShortMessage-2.8.0" level="project" />
     <orderEntry type="library" exported="" name="Bmob_Push_V1.0.0beta_20160627" level="project" />
+    <orderEntry type="library" exported="" name="ShareSDK-Core-2.8.0" level="project" />
   </component>
 </module>

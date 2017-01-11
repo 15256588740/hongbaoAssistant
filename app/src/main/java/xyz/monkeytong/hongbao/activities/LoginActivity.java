@@ -103,6 +103,7 @@ public class LoginActivity extends UserBaseActivity implements View.OnClickListe
                             toast("登录成功");
                             Intent intent = new Intent();
                             intent.putExtra("is_login", true);
+                            intent.putExtra("userId",info.getObjectId());
                             setResult(RESULT_OK, intent);
                             finish();
                             return;

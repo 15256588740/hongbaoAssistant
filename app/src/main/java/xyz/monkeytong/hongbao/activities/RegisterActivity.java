@@ -63,6 +63,7 @@ public class RegisterActivity extends UserBaseActivity {
                     finish();
                 } else {
                     toast("账号注册失败，用户名已存在!请重新输入");
+                    //清空输入框
                     username_edit.clearComposingText();
                     password_edit.clearComposingText();
                     recall_code_edit.clearComposingText();

@@ -53,5 +53,17 @@ android {
      compile files('libs/org.apache.http.legacy.jar')
      compile files('libs/rxandroid-1.2.0.jar')
      compile files('libs/rxjava-1.1.6.jar')
+     compile files('libs/jcore-android_v1.1.0.jar')
+     compile files('libs/jpush-android_v3.0.1.jar')
+     compile files('libs/ShareSDK-Core-2.8.0.jar')
+     compile files('libs/ShareSDK-Email-2.8.0.jar')
+     compile files('libs/ShareSDK-QQ-2.8.0.jar')
+     compile files('libs/ShareSDK-QZone-2.8.0.jar')
+     compile files('libs/ShareSDK-ShortMessage-2.8.0.jar')
+     compile files('libs/ShareSDK-SinaWeibo-2.8.0.jar')
+     compile files('libs/ShareSDK-Wechat-2.8.0.jar')
+     compile files('libs/ShareSDK-Wechat-Core-2.8.0.jar')
+     compile files('libs/ShareSDK-Wechat-Favorite-2.8.0.jar')
+     compile files('libs/ShareSDK-Wechat-Moments-2.8.0.jar')
  }
 
