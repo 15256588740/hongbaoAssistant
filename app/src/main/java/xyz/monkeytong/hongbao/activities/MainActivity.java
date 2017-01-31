@@ -30,6 +30,7 @@ import cn.sharesdk.onekeyshare.OnekeyShare;
 import xyz.monkeytong.hongbao.R;
 import xyz.monkeytong.hongbao.base.UserBaseActivity;
 import xyz.monkeytong.hongbao.bean.ConfigInfo;
+import xyz.monkeytong.hongbao.ui.NavigationDialog;
 import xyz.monkeytong.hongbao.utils.ConnectivityUtil;
 import xyz.monkeytong.hongbao.utils.UpdateTask;
 
@@ -63,6 +64,7 @@ public class MainActivity extends UserBaseActivity implements AccessibilityManag
         accessibilityManager = (AccessibilityManager) getSystemService(Context.ACCESSIBILITY_SERVICE);
         accessibilityManager.addAccessibilityStateChangeListener(this);
         updateServiceStatus();
+
     }
 
     private void initView() {
@@ -280,14 +282,21 @@ public class MainActivity extends UserBaseActivity implements AccessibilityManag
 
     public void openAccessibility(View view) {
         try {
-            Toast.makeText(this, "点击「红包助手」" + pluginStatusText.getText(), Toast.LENGTH_SHORT).show();
-            Intent accessibleIntent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
-            startActivity(accessibleIntent);
+            startSystemSetting();
         } catch (Exception e) {
             Toast.makeText(this, "遇到一些问题,请手动打开系统设置->无障碍服务->微信红包", Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
 
+    }
+
+    /**
+     * 开启系统设置
+     */
+    private void startSystemSetting() {
+        Toast.makeText(this, "点击「红包助手」" + pluginStatusText.getText(), Toast.LENGTH_SHORT).show();
+        Intent accessibleIntent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
+        startActivity(accessibleIntent);
     }
 
 
@@ -304,6 +313,7 @@ public class MainActivity extends UserBaseActivity implements AccessibilityManag
     }
 
 
+
     @Override
     public void onAccessibilityStateChanged(boolean enabled) {
         updateServiceStatus();
@@ -317,9 +327,28 @@ public class MainActivity extends UserBaseActivity implements AccessibilityManag
             pluginStatusText.setText(R.string.service_off);
             pluginStatusIcon.setBackgroundResource(R.mipmap.ic_stop);
         } else {
+            //服务未开启
+            //显示提醒对话框
+            showNavigationDialog();
             pluginStatusText.setText(R.string.service_on);
             pluginStatusIcon.setBackgroundResource(R.mipmap.ic_start);
         }
+    }
+
+    public void showNavigationDialog(){
+        NavigationDialog dialog = new NavigationDialog(this);
+        dialog.setCancelable(true);
+        dialog.setOnQuickOptionformClickListener(new NavigationDialog.OnQuickOptionformClick() {
+            @Override
+            public void onQuickOptionClick() {
+                //开启系统设置
+                startSystemSetting();
+            }
+        });
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.show();
+
+
     }
 
     /**

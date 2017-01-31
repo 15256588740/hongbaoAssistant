@@ -5,6 +5,7 @@ import android.annotation.TargetApi;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.ComponentName;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Rect;
@@ -19,6 +20,8 @@ import android.view.accessibility.AccessibilityNodeInfo;
 import java.util.ArrayList;
 import java.util.List;
 
+import xyz.monkeytong.hongbao.R;
+import xyz.monkeytong.hongbao.activities.MainActivity;
 import xyz.monkeytong.hongbao.utils.HongbaoSignature;
 import xyz.monkeytong.hongbao.utils.PowerUtil;
 
@@ -45,6 +48,18 @@ public class HongbaoService extends AccessibilityService implements SharedPrefer
 
     private PowerUtil powerUtil;
     private SharedPreferences sharedPreferences;
+
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        Notification notification =new Notification(R.mipmap.ic_launcher,"抢红包插件已开启"
+                ,System.currentTimeMillis());
+        Intent notificationIntent =new Intent(this, MainActivity.class);
+        PendingIntent pendingIntent =PendingIntent.getActivity(this,0,notificationIntent,0);
+        notification.setLatestEventInfo(this,"红包助手","抢红包功能已开启",pendingIntent);
+        startForeground(1,notification);
+    }
 
     /**
      * AccessibilityEvent
