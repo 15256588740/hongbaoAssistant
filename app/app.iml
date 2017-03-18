@@ -88,7 +88,7 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/dependency-cache" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.1.1/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/support-v4/22.1.1/jars" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.tencent.bugly/crashreport_upgrade/1.2.2.0/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.tencent.bugly/crashreport_upgrade/1.2.3/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental-safeguard" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/jniLibs" />
@@ -106,12 +106,12 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="ShareSDK-Wechat-2.8.0" level="project" />
     <orderEntry type="library" exported="" name="okio-1.7.0" level="project" />
-    <orderEntry type="library" exported="" name="crashreport_upgrade-1.2.2.0" level="project" />
     <orderEntry type="library" exported="" name="jpush-android_v3.0.1" level="project" />
     <orderEntry type="library" exported="" name="gson-2.6.2" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-22.1.1" level="project" />
     <orderEntry type="library" exported="" name="ShareSDK-SinaWeibo-2.8.0" level="project" />
     <orderEntry type="library" exported="" name="appcompat-v7-22.1.1" level="project" />
+    <orderEntry type="library" exported="" name="crashreport_upgrade-1.2.3" level="project" />
     <orderEntry type="library" exported="" name="MobTools-2016.1222.1756" level="project" />
     <orderEntry type="library" exported="" name="ShareSDK-Wechat-Core-2.8.0" level="project" />
     <orderEntry type="library" exported="" name="ShareSDK-Email-2.8.0" level="project" />
