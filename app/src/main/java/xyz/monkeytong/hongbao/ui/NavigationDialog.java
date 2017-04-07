@@ -37,6 +37,7 @@ public class NavigationDialog extends Dialog {
             public void onClick(View v) {
                 if (mListener != null) {
                     mListener.onQuickOptionClick();
+                    NavigationDialog.this.dismiss();
                 }
                 dismiss();
             }

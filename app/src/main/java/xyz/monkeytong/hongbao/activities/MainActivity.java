@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.text.TextUtils;
@@ -12,7 +14,7 @@ import android.view.View;
 import android.view.accessibility.AccessibilityManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Switch;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,8 +32,11 @@ import cn.sharesdk.onekeyshare.OnekeyShare;
 import xyz.monkeytong.hongbao.R;
 import xyz.monkeytong.hongbao.base.UserBaseActivity;
 import xyz.monkeytong.hongbao.bean.ConfigInfo;
+import xyz.monkeytong.hongbao.ui.BottomDialogFragment;
+import xyz.monkeytong.hongbao.ui.MoneyView;
 import xyz.monkeytong.hongbao.ui.NavigationDialog;
 import xyz.monkeytong.hongbao.utils.ConnectivityUtil;
+import xyz.monkeytong.hongbao.utils.PrefUtils;
 import xyz.monkeytong.hongbao.utils.UpdateTask;
 
 public class MainActivity extends UserBaseActivity implements AccessibilityManager.AccessibilityStateChangeListener {
@@ -41,8 +46,9 @@ public class MainActivity extends UserBaseActivity implements AccessibilityManag
     private ImageView pluginStatusIcon;
     //AccessibilityService 管理
     private AccessibilityManager accessibilityManager;
-    private Switch mSwitch;
-    private TextView mSwitchText;
+    // private Switch mSwitch;
+    // private TextView mSwitchText;
+    private RelativeLayout layout_uber;
     private SharedPreferences sp;
     private TextView mTv_update;
     private TextView tv_login_state;
@@ -51,6 +57,18 @@ public class MainActivity extends UserBaseActivity implements AccessibilityManag
     private boolean is_login = false;
     private String userId;
     private TextView tv_share;
+    private NavigationDialog mDialog;
+    private boolean isFirst = false;
+    private String[] mStrings = {"微信红包", "QQ红包"};
+    private MoneyView moneyview;
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            moneyview.start();
+            mHandler.sendEmptyMessageDelayed(0, 3500);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,11 +81,21 @@ public class MainActivity extends UserBaseActivity implements AccessibilityManag
         //监听AccessibilityService 变化
         accessibilityManager = (AccessibilityManager) getSystemService(Context.ACCESSIBILITY_SERVICE);
         accessibilityManager.addAccessibilityStateChangeListener(this);
-        updateServiceStatus();
+        //显示提醒对话框
+
+        if (!isFirst) {
+            isFirst = true;
+            showNavigationDialog();
+        }
+
+        mHandler.sendEmptyMessageDelayed(0, 3500);
 
     }
 
+
     private void initView() {
+        moneyview = (MoneyView) findViewById(R.id.moneyview);
+        layout_uber = (RelativeLayout) findViewById(R.id.layout_uber);
         tv_login_state = (TextView) findViewById(R.id.tv_login_state);
         tv_share = (TextView) findViewById(R.id.tv_share);
         tv_setting_backup = (TextView) findViewById(R.id.tv_setting_backup);
@@ -75,20 +103,28 @@ public class MainActivity extends UserBaseActivity implements AccessibilityManag
         mTv_update = (TextView) findViewById(R.id.tv_setting_update);
         pluginStatusText = (TextView) findViewById(R.id.layout_control_accessibility_text);
         pluginStatusIcon = (ImageView) findViewById(R.id.layout_control_accessibility_icon);
-        mSwitch = (Switch) findViewById(R.id.st_switch);
-        mSwitchText = (TextView) findViewById(R.id.tv_check_title);
-        mSwitch.setOnClickListener(new View.OnClickListener() {
+        layout_uber.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences.Editor edit = sp.edit();
-                if (mSwitch.isChecked()) {
-                    mSwitchText.setText("微信抢红包");
-                    edit.putBoolean("platform", true);
-                } else {
-                    mSwitchText.setText("QQ抢红包");
-                    edit.putBoolean("platform", false);
-                }
-                edit.commit();
+                BottomDialogFragment dialogFragment = new BottomDialogFragment();
+                dialogFragment.load("红包渠道", mStrings, PrefUtils.getIntsp(MainActivity.this, "platform_which", 0));
+                dialogFragment.setOnItemClickListener(new BottomDialogFragment.OnItemClickListener() {
+                    @Override
+                    public void OnItemClick(int which) {
+                        SharedPreferences.Editor edit = sp.edit();
+                        switch (which) {
+                            case 0:
+                                edit.putBoolean("platform", true);
+                                break;
+                            case 1:
+                                edit.putBoolean("platform", false);
+                                break;
+                        }
+                        edit.commit();
+                        PrefUtils.setIntsp(MainActivity.this, "platform_which", which);
+                    }
+                });
+                dialogFragment.show(getFragmentManager(), "");
             }
         });
 
@@ -136,25 +172,25 @@ public class MainActivity extends UserBaseActivity implements AccessibilityManag
     private void showShare() {
         ShareSDK.initSDK(this);
         OnekeyShare oks = new OnekeyShare();
-    //关闭sso授权
+        //关闭sso授权
         oks.disableSSOWhenAuthorize();
-    // title标题，印象笔记、邮箱、信息、微信、人人网和QQ空间等使用
+        // title标题，印象笔记、邮箱、信息、微信、人人网和QQ空间等使用
         oks.setTitle("红包助手");
-    // titleUrl是标题的网络链接，QQ和QQ空间等使用
+        // titleUrl是标题的网络链接，QQ和QQ空间等使用
         oks.setTitleUrl("https://github.com/15256588740/hongbaoAssistant");
-    // text是分享文本，所有平台都需要这个字段
+        // text是分享文本，所有平台都需要这个字段
         oks.setText("一个帮助你在微信抢红包时战无不胜的Android应用，https://github.com/15256588740/hongbaoAssistant");
-    // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
-    //oks.setImagePath("/sdcard/test.jpg");//确保SDcard下面存在此张图片
-    // url仅在微信（包括好友和朋友圈）中使用
+        // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
+        //oks.setImagePath("/sdcard/test.jpg");//确保SDcard下面存在此张图片
+        // url仅在微信（包括好友和朋友圈）中使用
         oks.setUrl("https://github.com/15256588740/hongbaoAssistant");
-    // comment是我对这条分享的评论，仅在人人网和QQ空间使用
+        // comment是我对这条分享的评论，仅在人人网和QQ空间使用
         oks.setComment("自动检测并且拆开红包，速度超乎你的想象");
-    // site是分享此内容的网站名称，仅在QQ空间使用
+        // site是分享此内容的网站名称，仅在QQ空间使用
         oks.setSite(getString(R.string.app_name));
-    // siteUrl是分享此内容的网站地址，仅在QQ空间使用
+        // siteUrl是分享此内容的网站地址，仅在QQ空间使用
         oks.setSiteUrl("https://github.com/15256588740/hongbaoAssistant");
-    // 启动分享GUI
+        // 启动分享GUI
         oks.show(this);
     }
 
@@ -268,15 +304,23 @@ public class MainActivity extends UserBaseActivity implements AccessibilityManag
     @Override
     protected void onResume() {
         super.onResume();
+
+        updateServiceStatus();
         //WiFi连接在第一时间检查更新。
         if (ConnectivityUtil.isWifi(this) || UpdateTask.count == 0)
             new UpdateTask(this, false).update();
     }
 
     @Override
+    public void finish() {
+        super.finish();
+    }
+
+    @Override
     protected void onDestroy() {
         //移除监听服务
         accessibilityManager.removeAccessibilityStateChangeListener(this);
+        mHandler.removeCallbacksAndMessages(null);
         super.onDestroy();
     }
 
@@ -294,7 +338,7 @@ public class MainActivity extends UserBaseActivity implements AccessibilityManag
      * 开启系统设置
      */
     private void startSystemSetting() {
-        Toast.makeText(this, "点击「红包助手」" + pluginStatusText.getText(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "点击无障碍->「红包助手」" + pluginStatusText.getText(), Toast.LENGTH_SHORT).show();
         Intent accessibleIntent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
         startActivity(accessibleIntent);
     }
@@ -313,7 +357,6 @@ public class MainActivity extends UserBaseActivity implements AccessibilityManag
     }
 
 
-
     @Override
     public void onAccessibilityStateChanged(boolean enabled) {
         updateServiceStatus();
@@ -328,25 +371,23 @@ public class MainActivity extends UserBaseActivity implements AccessibilityManag
             pluginStatusIcon.setBackgroundResource(R.mipmap.ic_stop);
         } else {
             //服务未开启
-            //显示提醒对话框
-            showNavigationDialog();
             pluginStatusText.setText(R.string.service_on);
             pluginStatusIcon.setBackgroundResource(R.mipmap.ic_start);
         }
     }
 
-    public void showNavigationDialog(){
-        NavigationDialog dialog = new NavigationDialog(this);
-        dialog.setCancelable(true);
-        dialog.setOnQuickOptionformClickListener(new NavigationDialog.OnQuickOptionformClick() {
+    public void showNavigationDialog() {
+        mDialog = new NavigationDialog(this);
+        mDialog.setCancelable(true);
+        mDialog.setOnQuickOptionformClickListener(new NavigationDialog.OnQuickOptionformClick() {
             @Override
             public void onQuickOptionClick() {
                 //开启系统设置
                 startSystemSetting();
             }
         });
-        dialog.setCanceledOnTouchOutside(true);
-        dialog.show();
+        mDialog.setCanceledOnTouchOutside(true);
+        mDialog.show();
 
 
     }
@@ -366,4 +407,5 @@ public class MainActivity extends UserBaseActivity implements AccessibilityManag
         }
         return false;
     }
+
 }

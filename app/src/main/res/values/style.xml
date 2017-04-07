@@ -13,4 +13,20 @@
     <style name="navigation_dialog" parent="@style/Theme.AppCompat.Dialog">
         <item name="android:windowBackground">@color/simiple_button_color</item>
     </style>
+
+    <style name="BottomDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:backgroundDimAmount">0.4</item>
+        <item name="android:windowAnimationStyle">@style/BottomDialogAnimation</item>
+    </style>
+
+    <!--底部Popup动画-->
+    <style name="BottomDialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/bottom_dialog_show</item>
+        <item name="android:windowExitAnimation">@anim/bottom_dialog_hide</item>
+    </style>
+
 </resources>

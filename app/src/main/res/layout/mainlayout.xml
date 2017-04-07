@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_above="@+id/layout_control"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="100dp"
             android:gravity="center_vertical|center_horizontal"
             android:text="红包助手"
             android:textColor="#fff"
@@ -49,9 +49,8 @@
     <LinearLayout
         android:id="@+id/layout_control"
         android:layout_width="match_parent"
-        android:layout_height="110dp"
+        android:layout_height="80dp"
         android:layout_above="@+id/layout_uber"
-        android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
         android:orientation="horizontal">
 
@@ -120,34 +119,25 @@
     </LinearLayout>
 
     <RelativeLayout
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
         android:id="@+id/layout_uber"
         android:layout_width="match_parent"
         android:layout_height="72dp"
         android:layout_above="@+id/linearLayout2"
         android:layout_alignLeft="@+id/layout_control"
         android:layout_alignStart="@+id/layout_control"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
         android:gravity="center"
         >
 
         <TextView
-            android:layout_marginLeft="26dp"
             android:id="@+id/tv_check_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:text="微信抢红包"
+            android:layout_marginLeft="26dp"
+            android:text="红包渠道"
             android:textSize="18sp"
-            />
-
-        <Switch
-            android:layout_marginRight="10dp"
-            android:checked="true"
-            android:id="@+id/st_switch"
-            android:layout_alignParentRight="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             />
 
         <View
@@ -157,6 +147,14 @@
             android:layout_marginTop="5dp"
             android:background="#77000000"
             />
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="180dp"
+            android:layout_toRightOf="@+id/tv_check_title"
+            android:src="@drawable/right_icon"
+            android:tint="#bb847f7f"/>
 
 
     </RelativeLayout>
@@ -171,5 +169,19 @@
         android:layout_marginBottom="22dp"
         android:orientation="horizontal">
     </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <xyz.monkeytong.hongbao.ui.MoneyView
+            android:id="@+id/moneyview"
+            android:layout_width="match_parent"
+            android:layout_height="370dp"
+            android:layout_gravity="center_horizontal"
+            android:padding="-150dp"/>
+
+    </FrameLayout>
 
 </RelativeLayout>
